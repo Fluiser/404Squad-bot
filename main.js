@@ -21,7 +21,7 @@ function play(connection, oldHttpStream) {
 }
 
 async function changeNick(member) {
-    const findNickname = member.replace(/[^A-ZА-Я0-9 ]/gi, '');
+    const findNickname = member.displayName.replace(/[^A-ZА-Я0-9 ]/gi, '');
     if(member.displayName != findNickname) {
         await member.setNickname(findNickname || 'username' + member.user.discriminator);
     }
@@ -38,6 +38,9 @@ bot.on('ready', async () => {
         .then(() => console.log('set activity.', bot.user.tag));
     reaction_message = await bot.channels.cache.get(config.reaction.channel).messages.fetch(config.reaction.message);
     guild = bot.guilds.cache.get(config.reaction.guild);
+    
+    if(config.cacheAllMembers)
+        await guild.members.fetch();
 
     const voiceChannel = bot.channels.cache.get(config.voiceChannel);
     if(voiceChannel) {
