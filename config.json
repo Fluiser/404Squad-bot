@@ -1,0 +1,34 @@
+{
+  "token" : "token",
+  "admins": ["333999936821526528"],
+  "prefix": "$",
+  "voiceChannel": "",
+  "radio": "http://listen6.myradio24.com:9000/2411",
+  "reaction": {
+    "guild": "ID guild.",
+    "channel": "ID Channel where message. Need for cache",
+    "message": "message for reaction",
+    "roles": {
+      "🛠️": "role ID",
+      "🔓": "role ID"
+    }
+  },
+  "privateVoiceChannels": {
+    "main_id": "ID voice for creation private channel",
+    "parent": "parent id where channels must be make",
+    "position": 0
+  },
+  "auto-images": {
+    "webhook": {
+      "explicit": {
+        "id": "id webhook's",
+        "token": "token webhooks's"
+      },
+      "safe": null
+    },
+    "sources": {
+      "danbooru": "https://danbooru.donmai.us/posts.json",
+      "gelbooru": "https://gelbooru.com/index.php?page=dapi&s=post&q=index&json=1"
+    }
+  }
+}
