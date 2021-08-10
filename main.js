@@ -21,6 +21,7 @@ function play(connection, oldHttpStream) {
 }
 
 async function changeNick(member) {
+    if(!member.manageable) return;
     const findNickname = member.displayName.replace(/[^A-ZА-Я0-9 ]/gi, '');
     if(member.displayName != findNickname) {
         await member.setNickname(findNickname || 'username' + member.user.discriminator);
