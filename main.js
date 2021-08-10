@@ -20,15 +20,17 @@ function play(connection, oldHttpStream) {
     });
 }
 
-async function changeNick(member) {
-    const findNickname = member.replace(/[^A-ZА-Я0-9 ]/gi, '');
-    if(member.displayName != findNickname) {
-        await member.setNickname(findNickname || 'username' + member.user.discriminator);
-    }
-}
+// async function changeNick(member) {
+//     const findNickname = member.replace(/[^A-ZА-Я0-9 ]/gi, '');
+//     if(member.displayName != findNickname) {
+//         await member.setNickname(findNickname || 'username' + member.user.discriminator);
+//     }
+// }
 
-bot.on('guildMemberUpdate', (o, newmember) => {if(o.displayName != newmember.displayName) changeNick(newmember)});
-bot.on('guildMemberAdd', member => changeNick(member));
+// HAHA. Discord.js@v12 - what the fuck you doing?
+
+// bot.on('guildMemberUpdate', (o, newmember) => {if(o.displayName != newmember.displayName) changeNick(newmember)});
+// bot.on('guildMemberAdd', member => changeNick(member));
 
 bot.on('ready', async () => {
     bot.user.setPresence({status: 'dnd', activity: {name: 'you', type: 'WATCHING'}})
