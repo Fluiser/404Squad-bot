@@ -48,10 +48,14 @@ bot.on('ready', async () => {
 
 bot.on('message', async message => {
     if(!config.admins.includes(message.author.id) || !message.content.startsWith(config.prefix)) return;
-    switch(message.content.slice(config.prefix).toLowerCase())
+    const args = message.content.split(' ');
+    switch(args.slice(config.prefix).toLowerCase())
     {
         case 'eval':
-            try { message.content.slice(config.prefix); } catch {}
+            try { eval(args.join(' ')); } catch {}
+        break;
+        case 'reboot':
+            process.exit();
         break;
     }
 });
