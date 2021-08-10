@@ -161,8 +161,10 @@ if(config['auto-images']) {
         const _client = new c(path, id);
         const send = async(img) => {
             const w = img.rating === 'e' ? explicit : safe;
-            if(w && img.score > 5 && ['.png', '.jpg', '.jpeg', '.webm', '.bmp'].some(format => img.file_url.endsWith(format)))
-                await w.send(new MessageEmbed().setImage(img.file_url).setFooter(img.id + '/' + img.score));
+            if(w && img.score > 5)
+                ['.png', '.jpg', '.jpeg', '.webm', '.bmp'].some(format => img.file_url.endsWith(format)) ?
+                    await w.send(new MessageEmbed().setImage(img.file_url).setFooter(img.id + '/' + img.score)) :
+                    await w.send(img.file_url);
         };
         // sender(_client, send); // just test.
         // Posts not 
