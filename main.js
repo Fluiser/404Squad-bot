@@ -37,7 +37,9 @@ bot.on('guildMemberAdd', member => changeNick(member));
 bot.on('ready', async () => {
     bot.user.setPresence({status: 'dnd', activity: {name: 'you', type: 'WATCHING'}})
         .then(() => console.log('set activity.', bot.user.tag));
-    reaction_message = await bot.channels.cache.get(config.reaction.channel).messages.fetch(config.reaction.message);
+
+    reaction_message = config.reaction.channel ? await bot.channels.cache.get(config.reaction.channel).messages.fetch(config.reaction.message) || {} : {};
+
     guild = bot.guilds.cache.get(config.reaction.guild);
     
     if(config.cacheAllMembers)
@@ -80,7 +82,7 @@ bot.on('raw', async event => {
     if(event.t !== "MESSAGE_REACTION_REMOVE" && event.t !== "MESSAGE_REACTION_ADD") return;
     if(event.d.message_id !== reaction_message.id) return;
     if(stack_wait.has(event.d.user_id)) await stack_wait.get(event.d.user_id);
-    const reaction = event.d.emoji && event.d.emoji.name;
+    const reaction = event.d.emoji && (event.d.emoji.name || event.d.emoji.id);
     const role = config.reaction.roles[reaction];
     if(!role) return;
     const member = guild.members.cache.get(event.d.user_id);
