@@ -1,4 +1,5 @@
 # 404Squad-bot
+<a href="https://discord.gg/zFDNYNyCBa">Discord Server</a><br/>
 Будет на русском, ибо я ленивый и это никто никогда не увидит. <br/>
 > Установка: `npm install` <br/>
 > Запуск: `node main.js` <br/>
