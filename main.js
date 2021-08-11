@@ -171,6 +171,8 @@ if(config['auto-images']) {
         };
         // sender(_client, send); // just test.
         // Posts not 
+        if(process.argv.includes('--test-images'))
+            sender(_client, send);
         setInterval(sender, 60000*60*6, _client, send); // sleep for 6 hours
     }
 }
