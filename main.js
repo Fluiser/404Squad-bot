@@ -12,8 +12,14 @@ const stack_wait = new Map();
 
 setTimeout(() => process.exit(122), 36000 * 60 * 60);
 
-function play(connection) {
-    (config.radio.startsWith('https') ? https : http).get(config.radio, stream => connection.play(stream));
+function play(connection, oldHttpStream) {
+    if(oldHttpStream && !oldHttpStream.destroyed)
+        oldHttpStream.destroy();
+    (config.radio.startsWith('https') ? https : http).get(config.radio, res => {
+        connection.play(res);
+        res.on('end', () => play(connection, res));
+        res.on('error', () => play(connection, res));
+    });
 }
 
 async function changeNick(member) {
@@ -44,7 +50,10 @@ bot.on('ready', async () => {
     const voiceChannel = bot.channels.cache.get(config.voiceChannel);
     if(voiceChannel) {
         voiceChannel.join()
-            .then(play).catch(console.log);
+            .then(voiceConnection => {
+                play(voiceConnection);
+                voiceConnection.on('end', () => play(voiceConnection));
+            }).catch(console.log);
     }
 });
 
