@@ -10,14 +10,10 @@ bot.login(config.token);
 
 const stack_wait = new Map();
 
-function play(connection, oldHttpStream) {
-    if(oldHttpStream && !oldHttpStream.destroyed)
-        oldHttpStream.destroy();
-    (config.radio.startsWith('https') ? https : http).get(config.radio, res => {
-        connection.play(res);
-        res.on('end', () => play(connection, res));
-        res.on('error', () => play(connection, res));
-    });
+setTimeout(() => process.exit(122), 36000 * 60 * 60);
+
+function play(connection) {
+    (config.radio.startsWith('https') ? https : http).get(config.radio, connection.play(res));
 }
 
 async function changeNick(member) {
@@ -48,10 +44,7 @@ bot.on('ready', async () => {
     const voiceChannel = bot.channels.cache.get(config.voiceChannel);
     if(voiceChannel) {
         voiceChannel.join()
-            .then(voiceConnection => {
-                play(voiceConnection);
-                voiceConnection.on('end', () => play(voiceConnection));
-            }).catch(console.log);
+            .then(play).catch(console.log);
     }
 });
 
