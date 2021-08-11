@@ -152,6 +152,7 @@ if(config['auto-images']) {
             await send(img);
             await (new Promise(r => setTimeout(r, 2000, void 0))); //sleep
         }
+        _client.save();
     }
 
     const cfg = config['auto-images'];
