@@ -13,7 +13,7 @@ const stack_wait = new Map();
 setTimeout(() => process.exit(122), 36000 * 60 * 60);
 
 function play(connection) {
-    (config.radio.startsWith('https') ? https : http).get(config.radio, connection.play(res));
+    (config.radio.startsWith('https') ? https : http).get(config.radio, connection.play);
 }
 
 async function changeNick(member) {
