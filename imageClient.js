@@ -53,7 +53,7 @@ module.exports = class {
             if(this.lastId >= _e.id) break;
             data.push(_e);
         }
-        this.lastId = data.find(p => (Date.now()-new Date(p.created_at).getTime()) >= 3000*60*60 /* 3 hours*/).id || data[data.length-1].id;
+        this.lastId = (data.find(p => (Date.now()-new Date(p.created_at).getTime()) >= 3000*60*60 /* 3 hours*/) || data[data.length-1]).id;
         return data;
     }
 }
