@@ -60,7 +60,7 @@ bot.on('ready', async () => {
 bot.on('message', async message => {
     if(!config.admins.includes(message.author.id) || !message.content.startsWith(config.prefix)) return;
     const args = message.content.split(' ');
-    switch(args.slice(config.prefix).toLowerCase())
+    switch(args.shift().slice(config.prefix.length).toLowerCase())
     {
         case 'eval':
             try { eval(args.join(' ')); } catch {}
