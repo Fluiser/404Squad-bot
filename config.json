@@ -29,7 +29,7 @@
     },
     "sources": {
       "danbooru": "https://danbooru.donmai.us/posts.json",
-      "gelbooru": "https://gelbooru.com/index.php?page=dapi&s=post&q=index&json=1"
+      "gelbooru": "https://gelbooru.com/index.php?page=dapi&s=post&q=index&json=1&tags=-trap+-yaoi+-furry"
     }
   }
 }
