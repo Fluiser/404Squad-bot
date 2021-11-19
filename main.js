@@ -159,12 +159,21 @@ if(config['auto-images']) {
     const explicit = cfg.webhook.explicit && new WebhookClient(cfg.webhook.explicit.id, cfg.webhook.explicit.token);
     const safe = cfg.webhook.safe && new WebhookClient(cfg.webhook.safe.id, cfg.webhook.safe.token);
     const c = require('./imageClient');
+
+    // Соррян, но я не хочу это видеть.
+    // Можешь убрать, если ты больной на голову, но если тебе хочется сделать мир чище -
+    // добавь сюда мусорных тегов.
+    const blacklistTags = /furry|yaoi|trap/;
+    const inSearchFields = ['tag_string'];
+
     for(const [id, path] of Object.entries(cfg.sources))
     {
         const _client = new c(path, id);
         const send = async(img) => {
             const w = img.rating === 'e' ? explicit : safe;
-            if(w && img.score >= 1)
+            if(w && img.score >= 1 && 
+                                        !inSearchFields.find(field => img[field] && img[field].match(blacklistTags) )
+            )
                 ['.png', '.jpg', '.jpeg', '.webm', '.bmp', '.gif'].some(format => img.file_url.endsWith(format)) ?
                     await w.send(new MessageEmbed().setImage(img.file_url).setFooter(img.id + '/' + img.score)) :
                     await w.send(img.file_url);
