@@ -164,7 +164,7 @@ if(config['auto-images']) {
     // Можешь убрать, если ты больной на голову, но если тебе хочется сделать мир чище -
     // добавь сюда мусорных тегов.
     const blacklistTags = /furry|yaoi|trap/;
-    const inSearchFields = ['tag_string'];
+    const inSearchFields = ['tag_string', 'tags']; // Поля тэгов для API. Да, это костыль.
 
     for(const [id, path] of Object.entries(cfg.sources))
     {
