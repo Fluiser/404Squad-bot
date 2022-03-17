@@ -50,7 +50,7 @@ module.exports = class {
         const data = [];
         const rdata = await this.request();
         try{
-            for(const _e of rdata) {
+            for(const _e of (rdata.post || rdata)) {
                 if(this.lastId >= _e.id) break;
                 data.push(_e);
             }
