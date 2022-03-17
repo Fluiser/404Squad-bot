@@ -25,3 +25,5 @@
 `auto-images.webhook.[explicit|safe].id: string` - ID вебхука.<br/>
 `auto-images.webhook.[explicit|safe].token: string` - Токен вебхука.<br/>
 `auto-images.sources: {[name: string]: url}:` - Исходные HTTP/HTTPS ресурсы, где будут браться изображения/видео и другое. Предоставляется отдельный класс, если API предоставляет неподобающий вид данных.<br/>
+<br/><br/>
+Нет ничего более вечного, чем временное.
