@@ -148,7 +148,7 @@ if(config.privateVoiceChannels.main_id) {
 if(config['auto-images']) {
     async function sender(_client, send) {
         const _data = await _client.gets();
-        for(const img of _data) {
+        for(const img of (_data.post || _data)) {
             await send(img);
             await (new Promise(r => setTimeout(r, 2000, void 0))); //sleep
         }
