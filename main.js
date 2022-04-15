@@ -174,9 +174,9 @@ if(config['auto-images']) {
             if(w && img.score >= 1 && 
                                         !inSearchFields.find(field => img[field] && img[field].match(blacklistTags) )
             )
-                ['.png', '.jpg', '.jpeg', '.webm', '.bmp', '.gif'].some(format => img.file_url.endsWith(format)) ?
+                img.file_url ? ['.png', '.jpg', '.jpeg', '.webm', '.bmp', '.gif'].some(format => img.file_url.endsWith(format)) ?
                     await w.send(new MessageEmbed().setImage(img.file_url).setFooter(img.id + '/' + img.score)) :
-                    await w.send(img.file_url);
+                    await w.send(img.file_url) : false; // idk what the fuck, buts API response is without a field.
         };
         // sender(_client, send); // just test.
         // Posts not 
