@@ -16,7 +16,10 @@ module.exports = class {
         return new Promise(resolve => {
             (typeof arg === 'string' ? get(arg) : get(this.path).query(arg))
                 .end((error, response) => {
-                    if(error) throw error;
+                    if(response.status != 200) {
+                        console.log(response.text);
+                        resolve([]);
+                    }
                     else {
                         resolve(response.body || response);
                     }
@@ -58,7 +61,8 @@ module.exports = class {
             console.log(rdata);
             throw err;
         }
-        this.lastId = (data.find(p => (Date.now()-new Date(p.created_at).getTime()) >= 3000*60*60 /* 3 hours*/) || data[data.length-1]).id;
+        if(data.length)
+            this.lastId = (data.find(p => (Date.now()-new Date(p.created_at).getTime()) >= 3000*60*60 /* 3 hours*/) || data[data.length-1]).id;
         return data;
     }
 }
