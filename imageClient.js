@@ -14,16 +14,18 @@ module.exports = class {
 
     async request(arg) {
         return new Promise(resolve => {
-            (typeof arg === 'string' ? get(arg) : get(this.path).query(arg))
-                .end((error, response) => {
-                    if(response.status != 200) {
-                        console.log(response.text);
-                        resolve([]);
-                    }
-                    else {
-                        resolve(response.body || response);
-                    }
-                });
+            try{
+                (typeof arg === 'string' ? get(arg) : get(this.path).query(arg))
+                    .end((error, response) => {
+                        if(response.status != 200) {
+                            console.log(response.text);
+                            resolve([]);
+                        }
+                        else {
+                            resolve(response.body || response);
+                        }
+                    });
+            } catch(err) {/*what you do, superagent(dalbaeb)?*/}
         })
     }
 
