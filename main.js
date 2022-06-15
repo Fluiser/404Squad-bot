@@ -185,3 +185,7 @@ if(config['auto-images']) {
         setInterval(sender, 60000*60*6, _client, send); // sleep for 6 hours
     }
 }
+
+// just watching.
+bot.on('error', console.log);
+bot.on('warning', console.log);
