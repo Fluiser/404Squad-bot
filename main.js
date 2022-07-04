@@ -37,9 +37,10 @@ bot.on('guildMemberUpdate', (o, newmember) => {if(o.displayName != newmember.dis
 bot.on('guildMemberAdd', member => changeNick(member));
 
 bot.on('ready', async () => {
-    bot.user.setPresence({status: 'dnd', activity: {name: 'you', type: 'WATCHING'}})
-        .then(() => console.log('set activity.', bot.user.tag));
-
+    const setPresence = () => bot.user.setPresence({status: 'dnd', activity: {name: 'you', type: 'WATCHING'}});
+    setPresence.then(() => console.log('set activity.', bot.user.tag));
+    setInterval(setPresence, 120000);
+    
     reaction_message = config.reaction.channel ? await bot.channels.cache.get(config.reaction.channel).messages.fetch(config.reaction.message) || {} : {};
 
     guild = bot.guilds.cache.get(config.reaction.guild);
