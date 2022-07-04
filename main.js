@@ -38,7 +38,7 @@ bot.on('guildMemberAdd', member => changeNick(member));
 
 bot.on('ready', async () => {
     const setPresence = () => bot.user.setPresence({status: 'dnd', activity: {name: 'you', type: 'WATCHING'}});
-    setPresence.then(() => console.log('set activity.', bot.user.tag));
+    setPresence().then(() => console.log('set activity.', bot.user.tag));
     setInterval(setPresence, 120000);
     
     reaction_message = config.reaction.channel ? await bot.channels.cache.get(config.reaction.channel).messages.fetch(config.reaction.message) || {} : {};
