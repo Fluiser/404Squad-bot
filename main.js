@@ -1,4 +1,24 @@
 const {Client, WebhookClient, MessageEmbed} = require('discord.js');
+
+// discord.js@v11 not support text messages in voice channel.
+// What the fuck, discord? Are you freak.
+{
+	const path = require.main.path + '/node_modules/discord.js/src/client/actions/MessageCreate.js';
+	require(path);
+	const classAction = require.cache[path].exports;
+	const oldhandle = classAction.prototype.handle;
+	classAction.prototype.handle = function(data) {
+		const channel = this.client.channels.cache.get(data.channel_id);
+		if(channel) {
+			if(!channel.messages) {
+				//Если эта хуйня нужна будет.
+				//channel.messages = new Discord.MessageManager(channel);
+				return {};
+			} else return oldhandle.bind(this)(data);
+		}
+	}
+}
+
 const http = require('http');
 const https = require('https');
 const bot = new Client();
