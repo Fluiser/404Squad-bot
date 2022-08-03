@@ -3,18 +3,29 @@ const {Client, WebhookClient, MessageEmbed} = require('discord.js');
 // discord.js@v11 not support text messages in voice channel.
 // What the fuck, discord? Are you freak.
 {
-	const classAction = require(require.main.path + '/node_modules/discord.js/src/client/actions/MessageCreate.js');
-	const oldhandle = classAction.prototype.handle;
-	classAction.prototype.handle = function(data) {
-		const channel = this.client.channels.cache.get(data.channel_id);
-		if(channel) {
-			if(!channel.messages) {
-				//Если эта хуйня нужна будет.
-				//channel.messages = new Discord.MessageManager(channel);
-				return {};
-			} else return oldhandle.bind(this)(data);
-		}
-	}
+    const classAction = require(require.main.path + '/node_modules/discord.js/src/client/actions/MessageCreate.js');
+    const oldhandle = classAction.prototype.handle;
+    classAction.prototype.handle = function(data) {
+        const channel = this.client.channels.cache.get(data.channel_id);
+        if(channel) {
+            if(!channel.messages) {
+                //Если эта хуйня нужна будет.
+                //channel.messages = new Discord.MessageManager(channel);
+                //return oldhandle.bind(this)(data);
+                return {};
+            } else return oldhandle.bind(this)(data);
+        }
+    }
+}
+{
+    const classAction = require(require.main.path + '/node_modules/discord.js/src/client/actions/MessageUpdate.js');
+    const oldhandle = classAction.prototype.handle;
+    classAction.prototype.handle = function(data) {
+        const channel = this.getChannel(data);
+        if(channel && channel.messages) {
+            return oldhandle.bind(this)(data);
+        } else return {old: null, updated: null};
+    } 
 }
 
 const http = require('http');
