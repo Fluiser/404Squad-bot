@@ -37,7 +37,16 @@ const {Client, WebhookClient, MessageEmbed} = require('discord.js');
 		}
 	} 
 }
-
+{
+	const classAction = require(require.main.path + '/node_modules/discord.js/src/client/actions/MessageDeleteBulk.js');
+	const oldhandle = classAction.prototype.handle;
+	classAction.prototype.handle = function(data) {
+		const channel = this.getChannel(data);
+		if(channel && channel.messages) {
+			return oldhandle.bind(this)(data);
+		}
+	} 
+} // Сила инвалидной коляски!
 
 const http = require('http');
 const https = require('https');
